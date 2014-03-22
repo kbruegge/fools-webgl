@@ -2,9 +2,22 @@ function getRandomNumber (min, max) {
     return Math.random() * (max - min) + min;
 }
 
+function getRandomVector (min, max) {
+    var x = getRandomNumber(min,max);
+    var y = getRandomNumber(min,max);
+    var z = getRandomNumber(min,max);
+    return new THREE.Vector3(x,y,z);
+}
+
+function getRandomXYVector (min, max) {
+    var x = getRandomNumber(min,max);
+    var y = getRandomNumber(min,max);
+    var z = 0;
+    return new THREE.Vector3(x,y,z);
+}
 function distanceFromCenter(thing){
     var dist = Math.pow(thing.position.x, 2) + Math.pow(thing.position.y,2) + Math.pow(thing.position.z,2);
-    return Math.sqrt(dist)
+    return Math.sqrt(dist);
 }
 
 
@@ -59,14 +72,14 @@ function Viewport(width, height) {
     // so pull it back
     this.camera.position.z = 300;
     this.camera.position.y = -500;
-    this.camera.lookAt( new THREE.Vector3(0,0,0))
+    this.camera.lookAt( new THREE.Vector3(0,0,0));
 
     // start the renderer
     this.renderer.setSize(width, height);
 
     // attach the render-supplied DOM element
     container.appendChild(this.renderer.domElement);
-    this.renderer.setClearColorHex(0xa0b0c1, 1)
+    this.renderer.setClearColorHex(0xa0b0c1, 1);
     this.render = function () {
         this.renderer.render(this.scene, this.camera);
     };
@@ -78,25 +91,20 @@ function main() {
     // set up the sphere vars
     var radius = 5, segments = 10, rings = 10, distance = 0;
     
-    var stepsize = 0.1;
-
     var s = [];
+    var oldpositions = [];
     var sun = createSphere(1, 16, 16);
     v.scene.add(sun);
     var vstartx, vstarty;
     
-    for (var i = 0; i < 130; i++) {
+    for (var i = 0; i < 200; i++) {
         
         s[i] = createSphere(radius, segments, rings);
         v.scene.add(s[i]);
-        //s[i].position.x = -100;
-        //s[i].position.y = 40;
-        s[i].position.y = getRandomNumber(40, 50);   
-        s[i].position.x = 0;
-        vstartx = getRandomNumber(-0.3,0);
-        vstarty = getRandomNumber(-0.3,0);
-        s[i].velocity  = new THREE.Vector3(vstartx,vstarty,0);
-        //s[i].position.x = getRandomNumber(1, 200);     
+        
+        s[i].position = getRandomVector(-160, 160);
+        
+        oldpositions[i] = (new THREE.Vector3()).addVectors(s[i].position, getRandomVector(-0.1, 0.1) );   
     };
     
     v.scene.add(createPlane(450, 450));
@@ -120,21 +128,33 @@ function main() {
     v.scene.add(pointLight);
     v.scene.add(pointLight2);
     controls = new THREE.TrackballControls(v.camera, v.renderer.domElement);
-
+    
+    var stepsize = 200.5;
     update();
     // animation loop
     function update() {
         requestAnimationFrame(update);
         //parent.rotation.z += 0.01;
-        var G = -90.81;
-        var M = 150, m =1;
+        var G = 9;
         for (var i = s.length - 1; i >= 0; i--) {
-            
+            var currentPos = (new THREE.Vector3()).copy(s[i].position);
             var delta = (new THREE.Vector3()).subVectors(sun.position, s[i].position);
-            var dv = delta.divideScalar(Math.pow(delta.length(), 3));   
+            delta.divideScalar(Math.pow(delta.length(), 3) + stepsize);   
+            //delta.multiplyScalar(Math.pow(stepsize, 2));
             
-            s[i].velocity.add(dv.multiplyScalar(2)); 
-            s[i].position.add(s[i].velocity);
+            delta.multiplyScalar(G);
+
+            delta.sub(oldpositions[i]);
+            oldpositions[i] = s[i].position
+            var newpos = delta.add(currentPos.multiplyScalar(2));
+            s[i].position = newpos;
+            //minus alte posititon
+            //dv = (new THREE.Vector3()).subVectors(dv, oldpositions[i]);
+            //plus 2 mal aktuelle
+           //dv = (new THREE.Vector3()).addVectors(dv, s[i].position.multiplyScalar(2));
+            
+            
+           // s[i].position.add(s[i].velocity);
             
         };
         
