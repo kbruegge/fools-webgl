@@ -113,7 +113,7 @@ function main() {
     v.scene.add(sun);
     
     for (var i = 0; i < 100; i++) {
-        radius = getRandomNumber(1, 8)
+        radius = getRandomNumber(1, 8);
         s[i] = createSphere(radius, segments, rings);
         s[i].mass  = 2*radius;
         s[i].dead = false;
@@ -167,7 +167,7 @@ function main() {
         //parent.rotation.z += 0.01;
         var G = 9;
         for (var i = s.length - 1; i >= 0; i--) {
-            if(s[i].dead == true){
+            if(s[i].dead === true){
                 continue;   
             }
             var currentPos = (new THREE.Vector3()).copy(s[i].position);
@@ -184,7 +184,7 @@ function main() {
             delta.multiplyScalar(G* s[i].mass);
 
             delta.sub(oldpositions[i]);
-            oldpositions[i] = s[i].position
+            oldpositions[i] = s[i].position;
             var newpos = delta.add(currentPos.multiplyScalar(2));
             s[i].position = newpos;
             //minus alte posititon
