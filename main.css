@@ -14,7 +14,9 @@ body {
     position: absolute;
     top: 0px; width: 100%;
     padding: 5px;
+    margin-top: 2em;
     color: #0093FF;
+    font-size: 2em;
 }
 
 #container{
