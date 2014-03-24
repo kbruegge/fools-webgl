@@ -283,7 +283,6 @@ Planet.prototype.addGForce = function (sun, death){
 
     var G = 1;
     var stepsize = 1;
-    var currentPos = (new THREE.Vector3()).copy(this.position);
     var delta = (new THREE.Vector3()).subVectors(sun.position, this.position);
         if (delta.length() < (sun.radius + this.radius ) ){
             this.dead = true;

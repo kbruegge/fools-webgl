@@ -20,7 +20,12 @@ body {
 }
 
 #container{
+    margin: auto;
     margin-top: 10em;
+    
+    max-width: 820px;
+    align-content: center;
+    text-align: center;
 }
 
 a {

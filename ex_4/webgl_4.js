@@ -15,10 +15,6 @@ function getRandomXYVector (min, max) {
     var z = 0;
     return new THREE.Vector3(x,y,z);
 }
-function distanceFromCenter(thing){
-    var dist = Math.pow(thing.position.x, 2) + Math.pow(thing.position.y,2) + Math.pow(thing.position.z,2);
-    return Math.sqrt(dist);
-}
 
 
 function createPlane(width, length){
@@ -34,30 +30,6 @@ function createPlane(width, length){
         return plane;
 }
 
-function createSphere(radius, segments,  rings) {
-    var geom = new THREE.SphereGeometry(radius, segments, rings);
-
-    // create a new mesh with
-    // sphere geometry - we will cover
-    var sphere = new THREE.Mesh(geom, new THREE.MeshNormalMaterial());
-    return sphere;
-}
-
-
-function createSun(radius, segments,  rings) {
-    var geom = new THREE.SphereGeometry(radius, segments, rings);
-        var planeMaterial =
-            new THREE.MeshPhongMaterial({
-                color: 0xffbd3f,
-                wireframe: false,
-                emissive: 0xe4bf5b
-     });
-        
-    // create a new mesh with
-    // sphere geometry - we will cover
-    var sphere = new THREE.Mesh(geom, planeMaterial);
-    return sphere;
-}
 
 function Viewport(width, height) {
     // set some camera attributes
@@ -260,21 +232,8 @@ function main() {
             if(planet.dead){
                 v.scene.remove(planet);
             }
-              //  delta.sub(this.oldposition);
-    //this.oldposition = this.position;
-    //return the new postiion for planet
-            //minus alte posititon
-            //dv = (new THREE.Vector3()).subVectors(dv, oldpositions[i]);
-            //plus 2 mal aktuelle
-           //dv = (new THREE.Vector3()).addVectors(dv, s[i].position.multiplyScalar(2));
-            
-            
-           // s[i].position.add(s[i].velocity);
-            
        }
         
-        
-        // draw
         v.render();
 
         controls.update(); 
