@@ -15,6 +15,7 @@
         <script type="text/javascript" src="../helper.js"></script>
         <script type="text/javascript" src="../planet.js"></script>
         <script type="text/javascript" src="webgl_5.js"></script>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure-min.css">
         <link rel="stylesheet" href="../main.css"/>
         
         <script type="text/javascript">
@@ -23,7 +24,53 @@
     </head>
     <body>
 
-        <div id="info"> Dis be really nice playing around with teh planets!</div>
-        <div id="container"></div>
+        <h1> Play with Planets!</h1>
+        <h3>Gravity is awesome.</h3>
+        <p>Use your left mouse button to turn the camera. The right mouse button to strafe and the mousewheel to zoom in and out.</p>
+            <div class="pure-g-r">
+                <div class="pure-u-1">
+                    <div id="container"></div>
+                </div>
+                <div class="pure-u-1-4">
+                    <div class="grid-box">
+                    <h4> Reset Planets</h4>
+                    <p>
+                    Press this button to reset Planets. Planets will be created with random sizes and with random Positions </p> 
+                    <button id="reset" class="pure-button">Reset</button>
+                    </div>
+                </div>
+                
+                <div class="pure-u-1-4">
+                                        <div class="grid-box">
+
+                    <h4> Reset Planets on XY Plane</h4>
+                    <p> Pressing this will also reset planets. Their initial positions however will be randomly distributed on the XY plane only.</p>
+                    <button id="resetxy" class="pure-button">Reset</button>
+                                            </div>
+                </div>
+                <div class="pure-u-1-4">
+                    <div class="grid-box">
+                        
+                            <h4>Number of initial Planets</h4>
+                        <p>This is the number of planets that will be generated when you hit on of the reset buttons</p>
+                        <form class="pure-form">
+                            <fieldset>
+                                <input type="number" id="numplanets" placeholder="#Planets" value="100" min="1" max="500">
+                            </fieldset>
+                        </form>
+                        
+                    </div>
+                </div>
+                <div class="pure-u-1-4">
+                    <div class="grid-box">
+
+                        <h4>Show FPS</h4>
+                        <p>When checked some debug output will be shown. Also a Framerate counter will be displayed in the upper left corner.</p>
+                        <label for="fps">
+                            <input id="fps" type="checkbox"> Show FPS Counter.
+                        </label>
+                    </div>
+                </div>
+            </div>
     </body>
 </html>

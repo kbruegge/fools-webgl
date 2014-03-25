@@ -1,8 +1,6 @@
 //needs a viewport
-function setupPlanets(v){
+function setupPlanets(xyplane, numPlanets){
     var radius = 5, segments = 2, rings = 2, distance = 0;
-    var numPlanets =200 ;
-    
     var s = [];
 //    var p = new Planet(2, 2);
 //    p.position = getRandomXYVector(-20, 20);
@@ -17,8 +15,13 @@ function setupPlanets(v){
         //get a new planet with radius = mass
         radius = getRandomNumber(3, 20);
         var p = new Planet(radius, radius);
-        p.position= getRandomVector(-1050, 1060);
-        p.velocity = getRandomVector(-10,10);
+        if (xyplane === true){
+            p.position= getRandomXYVector(-3050, 3060);
+            p.velocity = getRandomXYVector(-10,10);
+        } else {
+            p.position= getRandomVector(-2050, 2060);
+            p.velocity = getRandomVector(-10,10);   
+        }
         s[i] = p;
         
     }
@@ -36,9 +39,10 @@ var sunMaterial =
 
 function main() {
     
-    var v = new Viewport(800, 600);
+
     
-    var planets = setupPlanets();
+    var v = new Viewport(800, 600);
+    var planets = setupPlanets(false, $('#numplanets').val() );
     var index;
     for (index = 0; index < planets.length; ++index) {
         v.scene.add(planets[index]);
@@ -67,33 +71,47 @@ function main() {
     v.scene.add(pointLight2);
     controls = new THREE.TrackballControls(v.camera, v.renderer.domElement);
     
-    var container = document.getElementById('container');
     
     var stats = new Stats();
     stats.setMode(0); // 0: fps, 1: ms
 
-    // Align top-left
+    document.body.appendChild( stats.domElement );
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '0px';
+    stats.domElement.style.top = '0px';
+                stats.domElement.style.display =  'none';
 
-    container.appendChild( stats.domElement );
+
     
-    var Props = function (){
-        this.reset = function(){
-                for (index = 0; index < planets.length; ++index) {
-                    v.scene.remove(planets[index]);
-                }
-                planets = setupPlanets();
-                for (index = 0; index < planets.length; ++index) {
-                    v.scene.add(planets[index]);
-                }
+    $('#reset').click( function(){
+        for (index = 0; index < planets.length; ++index) {
+            v.scene.remove(planets[index]);
+        }
+        var num = $('#numplanets').val();
+        planets = setupPlanets(false, num);
+        for (index = 0; index < planets.length; ++index) {
+            v.scene.add(planets[index]);
+        }
+    });
     
-        };  
-    };
-   
-    var guiProps = new Props();
-    var gui = new dat.GUI();
-    
-    gui.add(guiProps, 'reset');
-    
+    $('#resetxy').click( function(){
+        for (index = 0; index < planets.length; ++index) {
+            v.scene.remove(planets[index]);
+        }
+        var num = $('#numplanets').val();
+        planets = setupPlanets(true, num);
+        for (index = 0; index < planets.length; ++index) {
+            v.scene.add(planets[index]);
+        }
+    });
+    $('#fps').click( function() {
+        if ( ! $('#fps').is(':checked') ){
+            stats.domElement.style.display =  'none';
+        } else {
+            stats.domElement.style.display =  'block';
+        }
+    });
+
     var clock = new THREE.Clock();
     
     update();
