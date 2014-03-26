@@ -82,7 +82,7 @@ function main() {
                 stats.domElement.style.display =  'none';
 
 
-    
+    var G = 1000;
     $('#reset').click( function(){
         for (index = 0; index < planets.length; ++index) {
             v.scene.remove(planets[index]);
@@ -111,6 +111,9 @@ function main() {
             stats.domElement.style.display =  'block';
         }
     });
+    $('#gconstant').change( function() {
+        G = $('#gconstant').val();
+    });
 
     var clock = new THREE.Clock();
     
@@ -131,7 +134,7 @@ function main() {
                 var p = planets[l];
                 if (p.dead) continue;
                 if (l === i ) continue;
-                planet.addGForce(p);
+                planet.addGForce(p, G);
                 planet.collision(p);
                 if(p.radius > 40){
                     p.material = sunMaterial;   

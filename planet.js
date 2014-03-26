@@ -35,9 +35,8 @@ function Planet(mass, radius, position, oldposition, material, segments, rings) 
 
 Planet.prototype = Object.create(THREE.Mesh.prototype);
 
-Planet.prototype.addGForce = function (sun){
+Planet.prototype.addGForce = function (sun, G){
 
-    var G = 1000;
     var stepsize = 10;
     var delta = (new THREE.Vector3()).subVectors(sun.position, this.position);
     var length = delta.length();
@@ -70,7 +69,7 @@ Planet.prototype.collision = function (sun){
         
         sun.velocity = nV;
     }
-}
+};
 
 Planet.prototype.applyForce = function (deltaT){
     var f = (new THREE.Vector3()).copy(this.force);
