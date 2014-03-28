@@ -27,11 +27,10 @@
         <h1> Play with Planets!</h1>
         <h3>Gravity is awesome.</h3>
         <p>Use your left mouse button to turn the camera. The right mouse button to strafe and the mousewheel to zoom in and out.</p>
-            <div class="pure-g-r">
-                <div class="pure-u-1">
-                    <div id="container"></div>
-                </div>
-                <div class="pure-u-1-5">
+            <div id="container"></div>
+            <div class="pure-g-r options ">
+
+                <div class="pure-u-1-4">
                     <div class="grid-box">
                     <h4> Reset Planets</h4>
                     <p>
@@ -40,7 +39,7 @@
                     </div>
                 </div>
                 
-                <div class="pure-u-1-5">
+                <div class="pure-u-1-4">
                                         <div class="grid-box">
 
                     <h4> Reset Planets on XY Plane</h4>
@@ -48,11 +47,11 @@
                     <button id="resetxy" class="pure-button">Reset</button>
                                             </div>
                 </div>
-                <div class="pure-u-1-5">
+                <div class="pure-u-1-4">
                     <div class="grid-box">
                         
                             <h4>Number of initial Planets</h4>
-                        <p>This is the number of planets that will be generated when you press one of the reset buttons</p>
+                        <p>This is the number of planets that will be generated when you press one of the reset buttons. Very high values will drop the performance significantly.</p>
                         <form class="pure-form">
                             <fieldset>
                                 <input type="number" id="numplanets" placeholder="#Planets" value="100" min="1" max="500">
@@ -61,7 +60,23 @@
                         
                     </div>
                 </div>
-                <div class="pure-u-1-5">
+                <div class="pure-u-1-4">
+                    <div class="grid-box">
+
+                        <h4>Change G</h4>
+                        <p>Change the value of the gravitational constant here. Bigger means faster movement and stronger forces.</p>
+                        <form class="pure-form">
+                            <fieldset>
+                                <input type="number" id="gconstant" placeholder="#Planets" value="1000" min="10" max="150000">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+<!-- beginn second row of options here -->
+            <div class="pure-g-r options ">
+                <div class="pure-u-1-4">
                     <div class="grid-box">
 
                         <h4>Show FPS</h4>
@@ -70,19 +85,19 @@
                             <input id="fps" type="checkbox"> Show FPS Counter.
                         </label>
                     </div>
-                </div>
-                <div class="pure-u-1-5">
+                </div> 
+                <div class="pure-u-1-4">
                     <div class="grid-box">
 
-                        <h4>Change G</h4>
-                        <p>Change the value of the gravitational constant here.Bigger means faster movement and stronger forces.</p>
-                        <form class="pure-form">
-                            <fieldset>
-                                <input type="number" id="gconstant" placeholder="#Planets" value="1000" min="10" max="150000">
-                            </fieldset>
-                        </form>
+                        <h4>Show Trails</h4>
+                        <p>This will show a trail behind every planet. This makes it easier to track planet movement. Sometimes it looks pretty to!</p>
+                        <label for="trails">
+                            <input id="trails" type="checkbox"> Show Trails.
+                        </label>
                     </div>
-                </div>
+                </div> 
+                
+                
             </div>
     </body>
 </html>

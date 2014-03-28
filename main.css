@@ -21,3 +21,7 @@ div.grid-box{
  padding-right: 1em;   
  padding-left: 1em;   
 }
+
+div.options{
+    margin: 1em;
+}
